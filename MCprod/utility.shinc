@@ -1,0 +1,31 @@
+#!/bin/bash
+# utility.shinc #
+
+#
+NC='\033[0m'
+FUNCOLOR='\033[1;33m'
+ARGCOLOR='\033[1;32m'
+ERRCOLOR='\033[1;31m'
+
+#
+function float_to_string()
+{
+    if [[ $# -ne 1 ]]
+    then
+        echo -e "${ERRCOLOR}error:${NC} invalid argument number - float_to_string()"
+        return 1
+    fi
+    part1=`echo $1 | awk -F "." '{print $1}'`
+    part2=`echo $1 | awk -F "." '{print $2}'`
+    rt_float_to_string=${part1:-0}p${part2:-0}
+    echo $rt_float_to_string
+}
+
+#
+function end_sub_name()
+{
+    [[ $# -ne 1 ]] && { echo -e "${ERRCOLOR}error:${NC} invalid argument number - end_subname()" ; return 1 ; }
+    result=${1##*/}
+    result=${result%%.*}
+    echo $result
+}
