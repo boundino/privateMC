@@ -5,16 +5,18 @@
 source utility.shinc
 
 gens=(
-    Run2018PbPb502/Dzeroana/python/Pythia8_DzeroToKPi_prompt_Dpt0p0,500           # D0 prompt
+    Run2018PbPb502/Dzeroana/python/Pythia8_DzeroToKPi_prompt_Dpt0p0,1000           # D0 prompt
     # Run2018PbPb502/Dzeroana/python/Pythia8_DzeroToKPi_nonprompt_Dpt0p0,500        # D0 nonprompt
 )
-pthats=(15) # pthats
+pthats=(30) # pthats
 
 ##
 RUN=
+ONLY_RUN=
 for i in $@
 do
     [[ $i != --* ]] && continue
+    [[ $i == --onlyrun ]] && { ONLY_RUN=1 ; RUN=1 ; }
     [[ $i == --run ]] && { RUN=1 ; }
 done
 [[ $RUN -ne 1 ]] && { echo "$0 [--run]" ; }
@@ -41,17 +43,19 @@ do
         echo -e "\e[32m -- ${config}.py, file:rootfiles/${config}.root\e[0m"
         echo -e "\e[32m -- embed: $embed"
         set -x
-        cmsDriver.py $genconfig --mc $embed --pileup_dasoption "--limit 0" --eventcontent RAWSIM --datatier GEN-SIM \
-            --conditions auto:phase1_2021_realistic_hi --beamspot MatchHI \
-            --step GEN,SIM --nThreads 4 --scenario HeavyIons --geometry DB:Extended --era Run3_pp_on_PbPb \
-            --python_filename ${config}.py --no_exec -n ${nevt} || exit $? ;
+        [[ $ONLY_RUN -eq 1 ]] || {
+            cmsDriver.py $genconfig --mc $embed --pileup_dasoption "--limit 0" --eventcontent RAWSIM --datatier GEN-SIM \
+                --conditions auto:phase1_2021_realistic_hi --beamspot MatchHI \
+                --step GEN,SIM --nThreads 4 --scenario HeavyIons --geometry DB:Extended --era Run3_pp_on_PbPb \
+                --python_filename ${config}.py --no_exec -n ${nevt} || exit $? ;
 
-        echo '
+            echo '
 process.Timing = cms.Service("Timing",
                              summaryOnly = cms.untracked.bool(True),
                              # useJobReport = cms.untracked.bool(True)
 )' >> ${config}.py
-        
+        }
+
         [[ $RUN -eq 1 ]] &&  { cmsRun -e -j logs/${config}.xml ${config}.py 2>&1 | tee logs/${config}.log ; }
         set +x
 
