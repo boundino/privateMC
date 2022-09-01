@@ -1,43 +1,21 @@
-// system include files
 #include <memory>
 #include <iostream>
 
-// user include files
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/ServiceRegistry/interface/Service.h"
 // #include "CommonTools/UtilAlgos/interface/TFileService.h"
 
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/Framework/interface/one/EDAnalyzer.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 
-// #include "DataFormats/TrackReco/interface/Track.h"
-// #include "DataFormats/TrackReco/interface/TrackFwd.h"
-// #include "DataFormats/MuonReco/interface/Muon.h"
-// #include "DataFormats/MuonReco/interface/MuonFwd.h"
 #include "SimDataFormats/GeneratorProducts/interface/HepMCProduct.h" 
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 // #include "DataFormats/JetReco/interface/GenJet.h"
 
-#include "TLorentzVector.h"
-
-// #include "SimDataFormats/TrackingAnalysis/interface/TrackingVertex.h"
-// #include "SimDataFormats/TrackingAnalysis/interface/TrackingVertexContainer.h"
-// #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticle.h"
-// #include "SimDataFormats/TrackingHit/interface/PSimHit.h"
-// #include "SimTracker/TrackerHitAssociation/interface/TrackerHitAssociator.h"
-// #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticle.h"
-// #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticleFwd.h"
-// #include "SimTracker/Records/interface/TrackAssociatorRecord.h"
-// #include "DataFormats/RecoCandidate/interface/TrackAssociation.h"
-//#include "SimTracker/TrackAssociation/interface/TrackAssociatorByHits.h"
-//
-// class declaration
-//
-
-class Genmochain : public edm::EDAnalyzer {
+class Genmochain : public edm::one::EDAnalyzer<edm::one::WatchRuns> {
 public:
   explicit Genmochain(const edm::ParameterSet&);
   ~Genmochain();
