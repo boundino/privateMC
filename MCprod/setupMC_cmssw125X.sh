@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cmsrel CMSSW_12_4_0
-cd CMSSW_12_4_0/src/
+cmsrel CMSSW_12_5_5_patch1
+cd CMSSW_12_5_5_patch1/src/
 cmsenv
 
 git cms-addpkg GeneratorInterface/ExternalDecays
@@ -12,7 +12,7 @@ git clone https://github.com/boundino/privateMC.git
 # ln -s privateMC/MCprod/GenericAnalyzer .
 # cp privateMC/MCprod/GenericAnalyzer/test/demoanalyzer_cfg.py .
 
-cp privateMC/MCprod/run_mc_gensim_cmssw124X.sh .
+cp privateMC/MCprod/run_mc_gensim_mb_cmssw125X.sh .
 ln -s privateMC/MCprod/utility.shinc .
 
 scram b -j4
