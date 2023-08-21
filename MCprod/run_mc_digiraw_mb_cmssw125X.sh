@@ -2,7 +2,7 @@
 # run_mc_digiraw_embedded_cmssw125X.sh #
 # ~CMSSW_12_5_5_patch1 #
 
-OUTDIR="/eos/cms/store/group/phys_heavyions/wangj/tracklet2022"
+OUTDIR="/eos/cms/store/group/phys_heavyions/wangj/tracklet2022/small"
 input=file:$OUTDIR/SinglePiPt01_pythia8_GEN_SIM.root
 config=step2_digiraw
 # config=$OUTDIR/SinglePiPt01_pythia8_DIGI_RAW.root
