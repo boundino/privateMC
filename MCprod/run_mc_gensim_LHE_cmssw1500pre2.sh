@@ -1,0 +1,38 @@
+#!/bin/bash
+
+FRAG=$1
+NEVT=${2:-1}
+
+config=${FRAG##*/}
+config=${config%%.*}
+
+set -x
+cmsDriver.py $1 --mc --eventcontent RAWSIM --datatier GEN-SIM \
+             --conditions 141X_mcRun3_2024_realistic_HI_v13 --beamspot DBrealistic \
+             --step LHE,GEN,SIM --scenario HeavyIons --geometry DB:Extended --era Run3_2025_OXY \
+             --python_filename ${config}.py --fileout ${config}.root --no_exec -n ${NEVT} || exit $? ;
+set +x
+# --nThreads 4
+
+echo '
+process.Timing = cms.Service("Timing",
+                             summaryOnly = cms.untracked.bool(True),
+                             # useJobReport = cms.untracked.bool(True)
+)
+
+process.MessageLogger.cerr.FwkReport.reportEvery = 100
+' >> ${config}.py
+
+# https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/HIN-RunIILowPUAutumn18GS-00002
+# cmsDriver.py Configuration/GenProduction/python/HIN-RunIILowPUAutumn18GS-00002-fragment.py --fileout file:HIN-RunIILowPUAutumn18GS-00002.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --python_filename HIN-RunIILowPUAutumn18GS-00002_1_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n 23160 || exit $? ; 
+
+RUN=0
+for i in $@
+do
+    [[ $i != --* ]] && continue
+    [[ $i == --run ]] && { RUN=1 ; }
+done
+
+[[ $RUN -eq 1 ]] && {
+    . run.sh ${config}.py
+}
