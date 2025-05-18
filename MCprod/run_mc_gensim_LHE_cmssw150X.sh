@@ -23,9 +23,6 @@ process.Timing = cms.Service("Timing",
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 ' >> ${config}.py
 
-# https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/HIN-RunIILowPUAutumn18GS-00002
-# cmsDriver.py Configuration/GenProduction/python/HIN-RunIILowPUAutumn18GS-00002-fragment.py --fileout file:HIN-RunIILowPUAutumn18GS-00002.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --python_filename HIN-RunIILowPUAutumn18GS-00002_1_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n 23160 || exit $? ; 
-
 RUN=0
 for i in $@
 do
