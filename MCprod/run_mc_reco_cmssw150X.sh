@@ -1,6 +1,6 @@
 set -x
 cmsDriver.py reco --mc --eventcontent AODSIM --datatier AODSIM \
-             --conditions 141X_mcRun3_2024_realistic_HI_v13 \
+             --conditions 150X_mcRun3_2025_forOO_realistic_v7 \
              --geometry DB:Extended \
              --step RAW2DIGI,L1Reco,RECO,RECOSIM --era Run3_2025_OXY \
              --nThreads 4 \
