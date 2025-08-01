@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FRAG=$1
-NEVT=${2:-1}
+NEVT=${2:-20}
 
 config=${FRAG##*/}
 config=${config%%.*}

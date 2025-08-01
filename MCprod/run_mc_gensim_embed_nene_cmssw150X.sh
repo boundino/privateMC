@@ -1,10 +1,11 @@
 #!/bin/bash
 
 FRAG=$1
-NEVT=${2:-1}
+NEVT=${2:-20}
 
 config=${FRAG##*/}
 config=${config%%.*}
+config=${config}_NeNe
 
 set -x
 cmsDriver.py $FRAG --pileup HiMixGEN --scenario HeavyIons \
