@@ -96,7 +96,7 @@ Genmochain::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       int pdg = p.pdgId();
       int status = p.status();
 
-      if(abs(pdg) != pdgId_) continue;
+      if(pdgId_ > 0 && abs(pdg) != pdgId_) continue;
       if(status_ > 0 && status != status_) continue;
       printmo(ref_p);
     }
