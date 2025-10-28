@@ -17,6 +17,7 @@ cmsDriver.py $FRAG --pileup HiMixGEN --scenario HeavyIons \
              --no_exec --mc || exit $? ;
 set +x
 # --nThreads 4
+# --pileup_input "dbs:/MinBias_NeNe_5p36TeV_hijing/HINOOSpring25GS-150X_mcRun3_2025_forOO_realistic_v8-v3/GEN-SIM" \
 
 echo '
 process.Timing = cms.Service("Timing",
