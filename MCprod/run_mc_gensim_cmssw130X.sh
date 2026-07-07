@@ -11,10 +11,10 @@ config=${config%%.*}
 set -x
 cmsDriver.py $FRAG --eventcontent RAWSIM --datatier GEN-SIM \
              --conditions 130X_mcRun3_2023_realistic_HI_v18 --beamspot Realistic2023PbPbCollision \
-             --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(500)" \
              --step GEN,SIM --scenario HeavyIons --geometry DB:Extended --era Run3_pp_on_PbPb \
              --python_filename ${config}.py --fileout ${config}.root -n ${NEVT} --no_exec --mc || exit $? ;
 set +x
+# --customise_commands process.source.numberEventsInLuminosityBlock="cms.untracked.uint32(500)" \
 # --nThreads 4
 
 echo '
@@ -23,7 +23,7 @@ process.Timing = cms.Service("Timing",
                              # useJobReport = cms.untracked.bool(True)
 )
 
-process.MessageLogger.cerr.FwkReport.reportEvery = 10
+process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 ' >> ${config}.py
 
 
